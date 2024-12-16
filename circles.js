@@ -14,6 +14,11 @@ function draw() {
 function recursiveCircle(x, y, r) {
   if (r > 1) { // base case: stop when radius is too small
     circle(x, y, r)
-    recursiveCircle(x, y, r / 2) // Recursive call for a smaller circle
+    
+    // Recursive calls for circles in multiple directions
+    recursiveCircle(x + r / 2, y, r / 2) // Circle to the right
+    recursiveCircle(x - r / 2, y, r / 2) // Circle to the left
+    recursiveCircle(x, y + r / 2, r / 2) // Circle below
+    recursiveCircle(x, y - r / 2, r / 2) // Circle above
   }
 }
