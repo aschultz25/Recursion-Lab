@@ -1,5 +1,6 @@
 let fibs = [0, 1, 1, 2]
 let n = 1
+let memo = {}
 
 function setup() {
   createCanvas(400, 400)
@@ -9,29 +10,31 @@ function setup() {
 
 function draw() {
   background(220)
-  text(`${n}th Fibonacci number: ${fib(n)}`, width / 2, height / 2)
+  text(`${n}th fibonacci number: ${fib(n)}`, width / 2, height / 2)
 }
 
 function keyPressed() {
   if (key === " ") {
-    n += 1
+    n += 1;
     redraw()
   }
 }
 
-// Fibonacci function with memoization
 function fib(n) {
   if (n < 1) { // Error/base case
     return 0
   }
-  
-  if (n < fibs.length) { // Check if already calculated
-    return fibs[n]
+
+  if (n === 1 || n === 2) { // Base case
+    return 1
   }
 
-  // Calculate the Fibonacci number and store it
-  const result = fib(n - 1) + fib(n - 2)
-  fibs[n] = result // Store in the array
-  return result
-}
+  // Check if value is already computed
+  if (memo[n] !== undefined) {
+    return memo[n]
+  }
 
+  // Otherwise, compute it and store in memo
+  memo[n] = fib(n - 1) + fib(n - 2)
+  return memo[n]
+}
